@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrderProcessing.Contracts\InternalAssetManage.Shared.csproj" />
-    <ProjectReference Include="..\OrderProcessing.Dal\InternalAssetManage.Dal.csproj" />
+    <ProjectReference Include="..\AssetManage.Shared\AssetManage.Shared.csproj" />
+    <ProjectReference Include="..\AssetManage.Dal\AssetManage.Dal.csproj" />
   </ItemGroup>
 
 </Project>

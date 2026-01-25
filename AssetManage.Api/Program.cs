@@ -1,5 +1,6 @@
 using AssetManage.Bll.Services;
 using AssetManage.Dal.ApplicationDbContext;
+using AssetManage.Dal.Seed;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,10 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = "swagger";
     });
+
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await SeedService.SeedDataAsync(dbContext);
 }
 
 app.UseHttpsRedirection();

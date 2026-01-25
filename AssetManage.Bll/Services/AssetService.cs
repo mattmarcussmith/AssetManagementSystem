@@ -1,31 +1,23 @@
-﻿using InternalAssetManage.Dal.ApplicationDbContext;
-using InternalAssetManage.Dal.Entities;
-using InternalAssetManage.Shared.Dto;
+﻿using AssetManage.Dal.ApplicationDbContext;
+using AssetManage.Dal.Entities;
+using AssetManage.Shared.Dto;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InternalAssetManage.Bll.Services
+namespace AssetManage.Bll.Services
 {
     public interface IAssetService
     {
         Task<AssetDetailsDto> CreateAssetAsync(CreateAssetDto createAssetDto);
         Task RetireAssetAsync(RetireAssetDto retireAssetDto);
-        Task<AssetDetailsDto> GetAssetDetailsAsync(int Id);
+        Task<AssetDetailsDto> GetAssetDetailsAsync(int id);
         Task<List<AssetDetailsDto>> GetAllAssetsAsync();
     }
 
-    public class AssetService : IAssetService
+    public class AssetService(AppDbContext dbContext) : IAssetService
     {
-        private readonly AppDbContext _dbContext;
-        public AssetService(AppDbContext dbContext) => _dbContext = dbContext;
-
         public async Task<List<AssetDetailsDto>> GetAllAssetsAsync()
         {
-            return await _dbContext.Assets
+            return await dbContext.Assets
                 .Where(x => !x.IsRetired)
                 .Select(x => new AssetDetailsDto
                 {
@@ -39,10 +31,10 @@ namespace InternalAssetManage.Bll.Services
                 .ToListAsync();
         }
 
-        public async Task<AssetDetailsDto> GetAssetDetailsAsync(int Id)
+        public async Task<AssetDetailsDto> GetAssetDetailsAsync(int id)
         {
-            var asset = _dbContext.Assets.FirstOrDefault(x => x.Id == Id) 
-                ?? throw new Exception("Asset not found");
+            var asset = await dbContext.Assets.FirstOrDefaultAsync(x => x.Id == id)
+                        ?? throw new InvalidOperationException("Asset not found");
 
             return new AssetDetailsDto
             {
@@ -66,8 +58,8 @@ namespace InternalAssetManage.Bll.Services
                 IsRetired = false,
             };
 
-            _dbContext.Assets.Add(asset);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Assets.Add(asset);
+            await dbContext.SaveChangesAsync();
 
             return new AssetDetailsDto
             {
@@ -82,13 +74,13 @@ namespace InternalAssetManage.Bll.Services
 
         public Task RetireAssetAsync(RetireAssetDto retireAssetDto)
         {
-            var asset = _dbContext.Assets.FirstOrDefault(x => x.Id == retireAssetDto.Id)
-                ?? throw new Exception("Asset not found");
+            var asset = dbContext.Assets.FirstOrDefault(x => x.Id == retireAssetDto.Id)
+                ?? throw new InvalidOperationException("Asset not found");
 
             asset.IsRetired = true;
 
-            _dbContext.Assets.Update(asset);
-            return _dbContext.SaveChangesAsync();
+            dbContext.Assets.Update(asset);
+            return dbContext.SaveChangesAsync();
         }
     }
 }

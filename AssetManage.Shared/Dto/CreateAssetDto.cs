@@ -1,4 +1,4 @@
-﻿namespace InternalAssetManage.Shared.Dto
+﻿namespace AssetManage.Shared.Dto
 {
     public class CreateAssetDto
     {

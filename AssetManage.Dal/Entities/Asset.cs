@@ -1,4 +1,4 @@
-﻿namespace InternalAssetManage.Dal.Entities
+﻿namespace AssetManage.Dal.Entities
 {
     public class Asset
     {

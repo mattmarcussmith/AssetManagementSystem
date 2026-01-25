@@ -1,7 +1,7 @@
 <Solution>
-  <Project Path="OrderProcessing.Bll/OrderProcessing.Bll.csproj" Id="3fcc39a8-ab11-4d1f-8740-95e5d61f343d" />
-  <Project Path="OrderProcessing.Contracts/OrderProcessing.Contracts.csproj" Id="a6f49d52-3415-4d22-a1a7-acad3f475417" />
-  <Project Path="OrderProcessing.Dal/OrderProcessing.Dal.csproj" Id="240acde2-03ed-464b-aef8-24d6bdf56bc2" />
-  <Project Path="OrderProcessing.Ui/OrderProcessing.Ui.csproj" Id="18f275af-b1fc-47bb-9597-317e272a5e11" />
-  <Project Path="WebApplication1/OrderProcessing.Api.csproj" Id="d7e7492d-f170-4a4a-a7b4-a1430db3981f" />
+  <Project Path="OrderProcessing.Bll/InternalAssetManage.Bll.csproj" Id="3fcc39a8-ab11-4d1f-8740-95e5d61f343d" />
+  <Project Path="OrderProcessing.Contracts/InternalAssetManage.Shared.csproj" Id="a6f49d52-3415-4d22-a1a7-acad3f475417" />
+  <Project Path="OrderProcessing.Dal/InternalAssetManage.Dal.csproj" Id="240acde2-03ed-464b-aef8-24d6bdf56bc2" />
+  <Project Path="OrderProcessing.Ui/InternalAssetManage.Ui.csproj" Id="18f275af-b1fc-47bb-9597-317e272a5e11" />
+  <Project Path="WebApplication1/InternalAssetManage.Api.csproj" Id="d7e7492d-f170-4a4a-a7b4-a1430db3981f" />
 </Solution>

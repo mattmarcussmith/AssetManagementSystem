@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrderProcessing.Bll\OrderProcessing.Bll.csproj" />
-    <ProjectReference Include="..\OrderProcessing.Contracts\OrderProcessing.Contracts.csproj" />
-    <ProjectReference Include="..\OrderProcessing.Dal\OrderProcessing.Dal.csproj" />
+    <ProjectReference Include="..\OrderProcessing.Bll\InternalAssetManage.Bll.csproj" />
+    <ProjectReference Include="..\OrderProcessing.Contracts\InternalAssetManage.Shared.csproj" />
+    <ProjectReference Include="..\OrderProcessing.Dal\InternalAssetManage.Dal.csproj" />
   </ItemGroup>
 
   <ItemGroup>

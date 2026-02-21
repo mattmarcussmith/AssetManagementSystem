@@ -76,5 +76,24 @@ namespace AssetManage.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpPost("search-assets")]
+        public async Task<ActionResult<List<AssetDetailsDto>>> SearchAssetsAsync([FromBody] SearchAssetDto dto)
+        {
+            try
+            {
+                return await assetService.SearchAssetsAsync(dto);
+
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            
+        }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AssetManage.Dal.ApplicationDbContext;
+﻿using AssetManage.Dal.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssetManage.Dal.Seed

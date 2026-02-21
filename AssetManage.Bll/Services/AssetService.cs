@@ -11,6 +11,7 @@ namespace AssetManage.Bll.Services
         Task RetireAssetAsync(RetireAssetDto retireAssetDto);
         Task<AssetDetailsDto> GetAssetDetailsAsync(int id);
         Task<List<AssetDetailsDto>> GetAllAssetsAsync();
+        Task<List<AssetDetailsDto>> SearchAssetsAsync(SearchAssetDto searchAssetDto);
     }
 
     public class AssetService(AppDbContext dbContext) : IAssetService
@@ -81,6 +82,50 @@ namespace AssetManage.Bll.Services
 
             dbContext.Assets.Update(asset);
             return dbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<AssetDetailsDto>> SearchAssetsAsync(SearchAssetDto searchAssetDto)
+        {
+            IQueryable<Asset> searchDatabase = dbContext.Assets;
+
+            if (!string.IsNullOrWhiteSpace(searchAssetDto.Name))
+            {
+                var name = searchAssetDto.Name.Trim();
+                searchDatabase =  searchDatabase.Where(x => x.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchAssetDto.Category))
+            {
+                var category = searchAssetDto.Category.Trim();
+                searchDatabase = searchDatabase.Where(x => x.Category.Contains(category));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchAssetDto.Location))
+            {
+                var location = searchAssetDto.Location.Trim();
+                searchDatabase = searchDatabase.Where(x => x.Location.Contains(location));
+            }
+
+            
+            if (searchAssetDto.IsRetired.HasValue)
+            {
+                var isRetired = searchAssetDto.IsRetired;
+                searchDatabase = searchDatabase.Where(x => x.IsRetired == isRetired);
+            }
+
+            var assetList = await searchDatabase
+                .Select(x => new AssetDetailsDto()
+                {
+                    Id = x.Id,
+                    AssetTag = x.AssetTag,
+                    Name = x.Name,
+                    Category = x.Category,
+                    Location = x.Location,
+                    IsRetired = x.IsRetired
+                })
+                .ToListAsync();
+
+            return assetList;
         }
     }
 }
